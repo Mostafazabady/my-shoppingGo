@@ -52,16 +52,18 @@ products:any[]= [];
 loadingCart: { [key: string]: boolean } = {};
 loadingWish: { [key: string]: boolean } = {}; 
 
-
-slides = [
-    `./assets/images/man1.webp`,
-    `./assets/images/man2.webp`,
-    `./assets/images/man3.webp`,
-    `./assets/images/woman1.webp`,
-    `./assets/images/woman2.webp`,
-    `./assets/images/woman3.webp`,
+currdeg: number = 0;
+  isDragging: boolean = false;
+  startX: number = 0;
+  prevDeg: number = 0;
+images: string[] = [
+    './assets/images/man1.webp',
+    './assets/images/man2.webp',
+    './assets/images/man3.webp',
+    './assets/images/woman1.webp',
+    './assets/images/woman2.webp',
+    './assets/images/woman3.webp',
   ];
-
 
 ngOnInit(): void {
   this._ApiDataService.getProudect().subscribe({
@@ -152,6 +154,42 @@ addToWishlist(id: string) {
 
 
 
+onMouseDown(e: MouseEvent) {
+    this.isDragging = true;
+    this.startX = e.clientX;
+  }
 
+  onMouseMove(e: MouseEvent) {
+    if (!this.isDragging) return;
+    this.rotateLogic(e.clientX);
+  }
+
+  onMouseUp() {
+    this.isDragging = false;
+    this.prevDeg = this.currdeg;
+  }
+
+  // --- التعامل مع اللمس (للموبايل) ---
+  onTouchStart(e: TouchEvent) {
+    this.isDragging = true;
+    this.startX = e.touches[0].clientX;
+  }
+
+  onTouchMove(e: TouchEvent) {
+    if (!this.isDragging) return;
+    this.rotateLogic(e.touches[0].clientX);
+  }
+
+  onTouchEnd() {
+    this.isDragging = false;
+    this.prevDeg = this.currdeg;
+  }
+
+  // المنطق المشترك للحساب
+  rotateLogic(currentX: number) {
+    const deltaX = currentX - this.startX;
+    // (0.5) هي سرعة الدوران، ممكن تزودها لو عايزه أسرع
+    this.currdeg = this.prevDeg - (deltaX * 0.5); 
+  }
 
 }

@@ -7,13 +7,36 @@
       <span class="main-btn">Play Video <i class="icon-arrow-right"></i></span>
     </div>
     <div class="col-md-7 col-lg-7 col-sm-12 sec-2">
-      <swiper-container class="mySwiper" effect="cards" grab-cursor="true" loop="true">
-        <swiper-slide *ngFor="let img of slides">
-          <div class="card-content">
-            <img [src]="img" alt="product"  loading="lazy" />
-          </div>
-        </swiper-slide>
-      </swiper-container>
+     <div class="slider-3d-container"
+         (mousedown)="onMouseDown($event)" 
+         (mousemove)="onMouseMove($event)" 
+         (mouseup)="onMouseUp()"
+         (mouseleave)="onMouseUp()"
+         (touchstart)="onTouchStart($event)"
+         (touchmove)="onTouchMove($event)"
+         (touchend)="onTouchEnd()">
+
+  <div class="scene">
+    <div class="carousel" [style.transform]="'rotateY(' + currdeg + 'deg)'">
+      
+      <div class="card-3d" 
+           *ngFor="let img of images; let i = index"
+           [style.transform]="'rotateY(' + (i * 60) + 'deg) translateZ(var(--radius))'">
+        
+        <div class="image-wrapper">
+            <img [src]="img" alt="Product 3D" draggable="false"> <div class="overlay-glow"></div>
+        </div>
+        
+      </div>
+
+    </div>
+  </div>
+
+  <div class="hint">
+    <i class="fas fa-hand-pointer"></i> Drag to Swap 
+  </div>
+
+</div>
     </div>
   </div>
 </section>

@@ -1,2 +1,1 @@
-# ShoppingGo-
-# ShoppingGo-
+# my-shoppingGo

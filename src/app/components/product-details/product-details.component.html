@@ -1,0 +1,88 @@
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="loader">
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+  </div>
+</div>
+
+
+<section class="product-details" *ngIf="productDetails">
+    <div class="container">
+        <div class="row">
+            <div class="product-details-contain d-flex justify-content-center flex-wrap">
+                
+                <div class="col-12 col-md-2 order-2 order-md-1">
+                    <div class="product-images">
+                        <div *ngFor="let item of productDetailsImages; let i = index" class="image-box"
+                            (click)="openGallery(i)">
+                            <img [src]="item" alt="product image" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-overlay" *ngIf="isGalleryOpen">
+                    <div class="gallery-content">
+                        <span class="close-btn" (click)="closeGallery()">×</span>
+                        <button class="nav-btn left" (click)="prevImage()">❮</button>
+                        <img [src]="productDetailsImages[currentImageIndex]" class="gallery-image" alt="gallery image" loading="lazy">
+                        <button class="nav-btn right" (click)="nextImage()">❯</button>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3 order-1 order-md-2 mb-3 mb-md-0">
+                    <div class="product-details-main-image">
+                        <owl-carousel-o [options]="productSlider">
+                            <ng-container *ngFor="let item of productDetails.images">
+                                <ng-template carouselSlide>
+                                    <img class="w-100" [src]="item" loading="lazy">
+                                </ng-template>
+                            </ng-container>
+                        </owl-carousel-o>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 order-3">
+                    <div class="product-details-info">
+                        <p>{{productDetails.category.name}}</p>
+                        <h1>{{productDetails.title | cuttext}}</h1>
+                        <div class="all-price d-flex flex-column">
+                            <span class="off">Price : <span class="price-off">20% off</span></span>
+                            <span class="price">{{productDetails.price | currency:'EGP'}}</span>
+                        </div>
+                        <div class="product-details-btns d-flex flex-wrap gap-2">
+                            <span class="details-btn1 main-btn flex-grow-1 text-center" (click)="addToWishList()">
+                                <i class="fas fa-heart"></i> WISHLIST
+                            </span>
+                            <span class="details-btn2 main-btn flex-grow-1 text-center" (click)="addToCart()">
+                                <i class="fas fa-cart-plus"></i> ADD TO CART
+                            </span>
+                        </div>
+                        <p>Product Description</p>
+                        <span class="description">{{productDetails.description}}</span>
+                        <p class="rating">Rating</p>
+                        <h2><i class="fas fa-star main-color"></i> {{productDetails.ratingsAverage}}</h2>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-3 py-5 order-4">
+                    <div class="card shadow rounded-3 px-2">
+                        <div class="card-body">
+                            <h6 class="card-title">Our top brands</h6>
+                            <p class="card-text">20% Off</p>
+                        </div>
+                        <div class="card-images">
+                            <img class="brands-image" src="./assets/images/puma.webp" alt="puma brand image" loading="lazy">
+                            <img class="brands-image" src="./assets/images/gucci.webp" alt="gucci brand image" loading="lazy">
+                            <img class="brands-image" src="./assets/images/zara.webp" alt="zara brand image" loading="lazy">
+                            <img class="brands-image" src="./assets/images/Nike.webp" alt="Nike brand image" loading="lazy">
+                        </div>
+                        <span class="card-btn main-btn my-3" routerLink="/brands">View Details <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

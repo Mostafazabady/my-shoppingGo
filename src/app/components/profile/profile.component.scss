@@ -1,0 +1,142 @@
+$primary-blue: #024D94;
+$accent-gold: #F8D171;
+$white: #ffffff;
+
+.profile-container {
+  min-height: 100vh;
+  background: #f8f9fa;
+  transition: all 0.4s ease;
+  padding-top: 80px;
+
+  &.dark-mode {
+    background: #0f172a;
+
+    .profile-card,
+    .settings-content {
+      background: #1e293b;
+      color: $white;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .form-control {
+      background: #334155;
+      border-color: #475569;
+      color: white;
+
+      &:focus {
+        background: #1e293b;
+      }
+    }
+
+    .text-muted {
+      color: #94a3b8 !important;
+    }
+  }
+}
+
+.profile-card,
+.settings-content {
+  background: $white;
+  border-radius: 24px;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+// Avatar
+.avatar-upload {
+  position: relative;
+  max-width: 160px;
+  margin: 0 auto;
+
+  .avatar-preview {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid $accent-gold;
+    box-shadow: 0 10px 25px rgba($primary-blue, 0.2);
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+         object-fit: cover;
+    }
+  }
+
+  .avatar-edit {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+
+    label {
+      width: 40px;
+      height: 40px;
+      background: $primary-blue;
+      color: $white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgb(0, 0, 0);
+
+      &:hover {
+        transform: scale(1.1);
+        background: $accent-gold;
+        color: $primary-blue;
+      }
+    }
+
+    input {
+      display: none;
+    }
+  }
+}
+
+.step-badge {
+  display: inline-block;
+  background: rgba($accent-gold, 0.15);
+  color: darken($accent-gold, 20%);
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.btn-save {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: $primary-blue;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+
+  &:hover:not(:disabled) {
+    background: lighten($primary-blue, 10%);
+    box-shadow: 0 8px 20px rgba($primary-blue, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.btn-toggle {
+  width: 100%;
+  padding: 10px;
+  border-radius: 50px;
+  border: 2px solid $accent-gold;
+  background: transparent;
+  color: inherit;
+  font-weight: 600;
+
+  &:hover {
+    background: $accent-gold;
+    color: $primary-blue;
+  }
+}

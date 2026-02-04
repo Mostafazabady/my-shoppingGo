@@ -1,0 +1,345 @@
+.row {
+  --bs-gutter-x: 0;
+}
+
+.sec-1 {
+  background-color: #F8D171;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-left: 30px;
+}
+
+.sec-1 h1 {
+  color: #727171;
+  font-size: 42px;
+  text-transform: none;
+  font-weight: 900;
+  margin: 0 0 15px;
+}
+
+.sec-2 {
+  background-color: #024D94;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-page-sec1-img {
+  width: 100%;
+  height: 60%;
+  border-radius: 10px;
+}
+
+
+.main-page-sec2 {
+  padding: 40px;
+}
+
+
+.main-page-sec2-img2 {
+  width: 80%;
+  border-radius: 20px;
+  margin-left: 40px;
+}
+
+.main-page-sec2-part1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page-sec2 h2 {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.uniqe-style {
+  font-family: cursive;
+  font-size: 50px;
+  font-weight: 700;
+  color: #024D94;
+}
+
+.main-page-sec2-img1 {
+  width: 15%;
+}
+
+.main-page-sec2 p {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+  line-height: 28px;
+  font-weight: 400;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.main-page-sec2-part1 .fa-angle-right {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+}
+
+
+.section-taste-product {
+  background-color: #FAFAFA;
+}
+
+.contain-title-section-taste {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  padding: 40px;
+}
+
+.contain-title-section-taste h2 {
+  font-family: cursive;
+  font-size: 40px;
+  font-weight: 900;
+  color: #024D94;
+}
+
+.contain-title-section-taste img {
+  align-self: center;
+}
+
+
+
+
+
+.portofolio {
+  width: 100%;
+  height: 100%;
+}
+
+.portofolio-row2 {
+  padding-bottom: 30px;
+}
+
+.portofolio-card {
+  background-color: #024d9450;
+  box-shadow: 0 13px 8px -10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50px;
+  margin-left: 25px;
+}
+
+.portofolio-card-img {
+  overflow: hidden;
+}
+
+.portofolio-card-img img {
+  width: 100%;
+  transition: 1s all ease;
+  cursor: pointer;
+  background-color: #FAFAFA;
+}
+
+.portofolio-card:hover img {
+  transform: scale(1.5);
+}
+
+.portofolio-information {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.portofolio-card-info h3 {
+  font-size: 19.2px;
+  line-height: 23.04px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #1e1e1e;
+}
+
+.portofolio-card .jop-name {
+  color: #0078ff;
+  font-size: 12.8px;
+  line-height: 19.2px;
+  font-weight: 400;
+}
+
+.portofolio-card .date {
+  font-size: 12.8px;
+  color: #4e4e4e;
+  line-height: 19.2px;
+  font-weight: 400;
+}
+
+.card-icons {
+  display: flex;
+  align-items: center;
+}
+
+.card-icons .love {
+  font-size: 24px;
+  color: rgb(133, 33, 33);
+  cursor: pointer;
+}
+
+.portofolio-card-icon i {
+  font-size: 40px;
+  color: #F8D171;
+  line-height: 60px;
+  cursor: pointer;
+  margin-left: 20px;
+  transition: 0.7s ease;
+}
+
+.portofolio-card-icon i:hover {
+  font-size: 40px;
+  color: #F8D171;
+  line-height: 60px;
+  cursor: pointer;
+  margin-left: 20px;
+  transform: scale(0.7);
+}
+
+
+.portofolio-card-img {
+  overflow: hidden;
+  text-align: center;
+  background-color: #fff;
+}
+
+
+
+
+/* ======================================================= start section counter ===================================  */
+
+.counter-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 80px 0;
+  background-image: url(../../../assets/images/overlay-bg.webp);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 99999;
+}
+
+
+.counter-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-color: #FAFAFA;
+  z-index: -1;
+}
+
+
+.counter-box {
+  text-align: center;
+}
+
+.counter {
+  font-size: 48px;
+  font-weight: bold;
+  color: #024D94;
+}
+
+.counter p {
+  color: #000;
+  font-weight: 600;
+  z-index: 999999999999999;
+}
+
+/* ======================================================= end section counter ===================================  */
+
+
+
+.mySwiper {
+  width: 260px;
+  height: 360px;
+}
+
+swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+  background: #000;
+}
+
+.card-content img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+swiper-slide-active .card-content {
+  transform: scale(1.03);
+  transition: transform 0.4s ease;
+}
+
+
+
+
+@media (max-width: 767.98px) {
+  .sec-1 h1 {
+    color: #727171;
+    font-size: 32px;
+  }
+
+  .sec-1 p {
+    color: #484848;
+    font-size: 16px;
+
+  }
+
+  .main-page-sec1-img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .active-link {
+    background-color: transparent;
+  }
+
+  .main-page-sec2-img2 {
+    width: 80%;
+    margin-top: 35px;
+  }
+
+  .main-page-sec2 h2 {
+    font-size: 30px;
+  }
+
+  .uniqe-style {
+    font-size: 35px;
+  }
+
+
+  .contain-title-section-taste h2 {
+    font-size: 22px;
+  }
+
+
+  .counter-section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .counter-box {
+    margin-bottom: 30px;
+  }
+
+
+}

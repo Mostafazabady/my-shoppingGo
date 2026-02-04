@@ -1,0 +1,31 @@
+.badge-cart {
+    position: absolute;
+    top: -8px;
+    right: -12px;
+    background-color: #F8D171; 
+    color: #024D94;           
+    font-size: 11px;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    -webkit-animation: bounce 0.3s ease;
+            animation: bounce 0.3s ease;
+}
+
+@-webkit-keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}

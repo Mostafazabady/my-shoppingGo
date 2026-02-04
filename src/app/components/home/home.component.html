@@ -1,0 +1,143 @@
+<section @fadeIn>
+  <div class="row center">
+    <div class="col-md-5 col-lg-5 col-sm-12 sec-1">
+      <h1>Let's Keep Your Home Charge</h1>
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. <br> Qui optio, unde debitis corporis repellat,
+        facilis <br> earum quia accusantium maxime harum natus <br> dolores repellendus eos dolor.</p>
+      <span class="main-btn">Play Video <i class="icon-arrow-right"></i></span>
+    </div>
+    <div class="col-md-7 col-lg-7 col-sm-12 sec-2">
+      <swiper-container class="mySwiper" effect="cards" grab-cursor="true" loop="true">
+        <swiper-slide *ngFor="let img of slides">
+          <div class="card-content">
+            <img [src]="img" alt="product"  loading="lazy" />
+          </div>
+        </swiper-slide>
+      </swiper-container>
+    </div>
+  </div>
+</section>
+
+
+
+<section @fadeIn>
+  <div class="container">
+    <div class="main-page-sec2">
+      <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12">
+          <div class="main-page-sec2-part1">
+            <h2>About The <span class="uniqe-style">Shopping Go!</span></h2>
+            <img class="main-page-sec2-img1" src="./assets/images/line.webp" alt="line image" loading="lazy">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea iste veniam quae? <br>
+              Accusantium ad aperiam,eos recusandae temporibus vel in fugiat <br> dolor necessitatibus
+              distinctio modi laboriosam minima, laudantium <br> corporis repudiandae et earum soluta animi. Ex?
+            </p>
+            <span><i class="fa-solid fa-angle-right"></i> Nunc quis justo sed odio scelerisque.</span>
+            <span><i class="fa-solid fa-angle-right"></i> Duis tristique lorem non risus dignissim.</span>
+            <span class="main-btn my-3">Learn More</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12">
+          <div class="main-page-sec2-part2">
+            <img class="main-page-sec2-img2 w-75" src="./assets/images/Shawn (2).webp" alt="Image showing the About Us section" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="premium-products-sec" @fadeIn>
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Taste Our Collection</h2>
+      <div class="line-decor"></div>
+    </div>
+
+    <div class="products-grid">
+      <div class="pro-card" *ngFor="let product of products">
+
+        <div class="card-img-wrapper">
+          <img [src]="product.imageCover" [alt]="product.title"  loading="lazy">
+
+          <span class="badge-new" *ngIf="product.ratingsAverage >= 4.5">Top Rated</span>
+
+          <div class="actions-overlay">
+
+            <button class="action-btn" (click)="addToWishlist(product._id)" [disabled]="loadingWish[product._id]">
+              <i class="fa-regular fa-heart" *ngIf="!loadingWish[product._id]"></i>
+              <div class="mini-spinner" *ngIf="loadingWish[product._id]"></div>
+            </button>
+
+            <button class="action-btn cart-btn" (click)="addTocart(product._id)" [disabled]="loadingCart[product._id]">
+              <i class="fa-solid fa-cart-plus" *ngIf="!loadingCart[product._id]"></i>
+              <div class="mini-spinner" *ngIf="loadingCart[product._id]"></div>
+            </button>
+
+            <button class="action-btn" [routerLink]="['/productDetails', product._id]">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-info" >
+          <div class="cat-rate-row">
+            <span class="category">{{ product.category.name }}</span>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i> {{ product.ratingsAverage }}
+            </div>
+          </div>
+
+          <h3 class="product-title" [routerLink]="['/productDetails', product._id]">
+            {{ product.title | cuttext }}
+          </h3>
+
+          <div class="price-row">
+            <span class="price">{{ product.price | currency:'EGP ' }}</span>
+            <span class="old-price" *ngIf="product.priceAfterDiscount">{{ product.price * 1.2 | currency:'EGP '
+              }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="counter-section" @fadeIn>
+  <div class="counter-overlay"></div>
+
+  <div class="counter-box">
+    <h2 class="counter" #counter [attr.data-target]="2500">
+      0
+    </h2>
+    <p> TOTAL CLIENTS</p>
+  </div>
+
+  <div class="counter-box">
+    <h2 class="counter" #counter [attr.data-target]="20">
+      0
+    </h2>
+    <p>{{'our parteners'|uppercase}}</p>
+  </div>
+
+  <div class="counter-box">
+    <h2 class="counter" #counter [attr.data-target]="15">
+      0
+    </h2>
+    <p> YEARS OF EXPERIENCE</p>
+  </div>
+  <div class="counter-box">
+    <h2 class="counter" #counter [attr.data-target]="7">
+      0
+    </h2>
+    <p> AWARD WON</p>
+  </div>
+
+</section>

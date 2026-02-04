@@ -1,0 +1,26 @@
+<section class="orders-sec">
+  <div class="container">
+    <h2 class="title"><i class="fa-solid fa-box-open"></i> My Orders History</h2>
+    
+    <div class="orders-list" *ngIf="orders.length > 0">
+      <div class="order-item" *ngFor="let order of orders">
+        <div class="order-head">
+          <span>Order ID: #{{order.id}}</span>
+          <span class="status-tag" [class.paid]="order.isPaid">
+            {{ order.isPaid ? 'Paid' : 'Pending' }}
+          </span>
+        </div>
+        
+        <div class="order-body">
+          <div class="prod-thumb" *ngFor="let item of order.cartItems">
+             <img [src]="item.product.imageCover" alt="all oreder user done" loading="lazy">
+          </div>
+          <div class="total-info">
+            <p>Total: <strong>{{order.totalOrderPrice}} EGP</strong></p>
+            <p>Payment: {{order.paymentMethodType}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

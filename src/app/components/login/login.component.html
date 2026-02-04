@@ -1,0 +1,33 @@
+<section class="wrapper">
+  <!-- Signup Form -->
+  <div class="form signup">
+    <header>Login</header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="handleForm()">
+      <input class="father-warn" formControlName="name" type="text" placeholder="Full name" />
+      <div *ngIf="loginForm.get('name')?.touched && loginForm.get('name')?.errors" class="warn alert alert-danger">
+        <p *ngIf="loginForm.get('name')?.getError('required')">** name is requierd **</p>
+        <p *ngIf="loginForm.get('name')?.getError('minlength')">** name minLength is 3 **</p>
+        <p *ngIf="loginForm.get('name')?.getError('maxlength')">** name maxLength is 10 **</p>
+      </div>
+      <input formControlName="email" type="email" placeholder="Email address" />
+      <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors" class="warn alert alert-danger">
+        <p *ngIf="loginForm.get('email')?.getError('required')">** email is requierd **</p>
+        <p *ngIf="loginForm.get('email')?.getError('email')">** email invalid format **</p>
+      </div>
+      <input formControlName="password" type="password" placeholder="Password" />
+      <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="loginForm.get('password')?.getError('required')">** password is requierd **</p>
+        <p *ngIf="loginForm.get('password')?.getError('pattern')">** password must be at least 6 chars **</p>
+      </div>
+      <a routerLink="/profiles" class="cursor">Forgot password?</a>
+      <div class="contain-bts-signup">
+        <input [disabled]="loginForm.invalid" type="submit" value="Login" />
+      </div>
+      <p *ngIf="errMsg" class="warn alert alert-danger">{{errMsg}}</p>
+    </form>
+
+  </div>
+
+</section>

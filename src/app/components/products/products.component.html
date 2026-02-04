@@ -1,0 +1,100 @@
+<section class="product-header">
+  <div class="fade fade-left"></div>
+  <div class="fade fade-right"></div>
+
+  <div class="slider-track">
+    <div class="slide" *ngFor="let item of titles">
+      <span>{{ item }}</span>
+    </div>
+
+    <div class="slide" *ngFor="let item of titles">
+      <span>{{ item }}</span>
+    </div>
+  </div>
+</section>
+
+<section class="section-one-products">
+  <div class="product-sale">
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide><img src="./assets/images/sale.webp" alt="sale" loading="lazy"></ng-template>
+      <ng-template carouselSlide><img src="./assets/images/sale-2.webp" alt="sale" loading="lazy"></ng-template>
+      <ng-template carouselSlide><img src="./assets/images/monday.webp" alt="monday offer" loading="lazy"></ng-template>
+    </owl-carousel-o>
+  </div>
+
+</section>
+
+
+
+<section class="premium-products-sec">
+  <div class="container">
+    <div class="section-header">
+      <h2> Our Products</h2>
+      <div class="line-decor"></div>
+    </div>
+
+    <div class="products-grid">
+      <div class="pro-card" *ngFor="let product of displayedProducts">
+
+        <div class="card-img-wrapper">
+          <img [src]="product.imageCover" [alt]="product.title" loading="lazy">
+
+          <span class="badge-new" *ngIf="product.ratingsAverage >= 4.5">Top Rated</span>
+
+          <div class="actions-overlay">
+
+            <button class="action-btn" (click)="addToWishlist(product._id)" [disabled]="loadingWish[product._id]">
+              <i class="fa-regular fa-heart" *ngIf="!loadingWish[product._id]"></i>
+              <div class="mini-spinner" *ngIf="loadingWish[product._id]"></div>
+            </button>
+
+            <button class="action-btn cart-btn" (click)="addTocart(product._id)" [disabled]="loadingCart[product._id]">
+              <i class="fa-solid fa-cart-plus" *ngIf="!loadingCart[product._id]"></i>
+              <div class="mini-spinner" *ngIf="loadingCart[product._id]"></div>
+            </button>
+
+            <button class="action-btn" [routerLink]="['/productDetails', product._id]">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-info">
+          <div class="cat-rate-row">
+            <span class="category">{{ product.category.name }}</span>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i> {{ product.ratingsAverage }}
+            </div>
+          </div>
+
+          <h3 class="product-title" [routerLink]="['/productDetails', product._id]">
+            {{ product.title | cuttext }}
+          </h3>
+
+          <div class="price-row">
+            <span class="price">{{ product.price | currency:'EGP ' }}</span>
+            <span class="old-price" *ngIf="product.priceAfterDiscount">{{ product.price * 1.2 | currency:'EGP '}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="pagination-area" *ngIf="pages.length > 1">
+      <button class="page-nav prev" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="numbers">
+        <button *ngFor="let page of pages" class="num-btn" [class.active]="page === currentPage"
+          (click)="changePage(page)">
+          {{ page }}
+        </button>
+      </div>
+
+      <button class="page-nav next" (click)="changePage(currentPage + 1)" [disabled]="currentPage === pages.length">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>

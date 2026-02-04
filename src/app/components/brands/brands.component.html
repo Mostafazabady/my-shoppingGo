@@ -1,0 +1,87 @@
+<div class="brands-page">
+  <div class="header">
+    <h1>Official Brands</h1>
+    <p>Shop by your favorite world-class manufacturers</p>
+  </div>
+
+  <div class="brands-grid" [@brandsAnim]="brands.length">
+    <div class="brand-card" *ngFor="let brand of brands" (click)="viewBrandDetails(brand._id)">
+      <div class="logo-wrapper">
+        <img [src]="brand.image" [alt]="brand.name" loading="lazy">
+      </div>
+      <div class="brand-info">
+        <h3>{{ brand.name }}</h3>
+        <span class="explore">View Collection &rarr;</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="side-drawer-overlay" *ngIf="isDrawerOpen" (click)="isDrawerOpen = false">
+    <div class="drawer-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="isDrawerOpen = false">&times;</button>
+
+      <div class="drawer-body" *ngIf="selectedBrand">
+        <div class="detail-logo">
+          <img [src]="selectedBrand.image" alt="selected brand" loading="lazy">
+        </div>
+        <h2>{{ selectedBrand.name }}</h2>
+        <div class="status-tag">Official Partner</div>
+
+        <p class="desc">You are now viewing the official collection of {{ selectedBrand.name }}. Every product is
+          guaranteed for quality and authenticity.</p>
+
+        <button class="shop-brand-btn" (click)="openBrandProducts(selectedBrand._id)">
+          Browse {{ selectedBrand.name }} Products
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="global-overlay" *ngIf="showModal" (click)="closeProducts()">
+
+  <div class="popup-window" (click)="$event.stopPropagation()">
+
+    <button class="exit-btn" (click)="closeProducts()">&times;</button>
+
+    <div class="popup-header">
+      <h2>{{ selectedBrand?.name }} Products</h2>
+      <div class="accent-line"></div>
+    </div>
+
+    <div class="popup-scroll-area">
+      <div class="loading-box" *ngIf="loadingProducts">
+        <div class="modern-spinner"></div>
+        <p>Loading the latest collection...</p>
+      </div>
+      <div class="products-grid" *ngIf="!loadingProducts && products.length > 0">
+        <div class="product-card" *ngFor="let prod of products">
+          <div [routerLink]="['/productDetails', prod._id]" class="prod-img cursor">
+            <img [src]="prod.imageCover" alt="product" loading="lazy">
+          </div>
+          <div class="prod-info">
+            <h4>{{ prod.title | slice:0:20 }}...</h4>
+            <div class="price-row">
+              <span class="price">{{ prod.price }} EGP</span>
+              <span class="stars">⭐ {{ prod.ratingsAverage }}</span>
+            </div>
+            <div class="product-details-btns">
+              <span class="details-btn2 main-btn" (click)="addToCart(prod._id)"><i class="fas fa-cart-plus"></i> ADD TO
+                CART</span>
+              <span class="details-btn1 main-btn" (click)="addToWishList(prod._id)"><i class="fas fa-heart"></i>
+                WISHLIST</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-msg" *ngIf="!loadingProducts && products.length === 0">
+        <p>No products available for this brand at the moment.</p>
+      </div>
+    </div>
+
+  </div>
+</div>

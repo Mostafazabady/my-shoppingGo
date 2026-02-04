@@ -1,0 +1,147 @@
+$primary-blue: #024D94;
+$accent-gold: #F8D171;
+
+.checkout-sec {
+    padding: 80px 0;
+    background: #f4f7f6;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+
+    .checkout-card {
+        max-width: 500px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+        border-top: 5px solid $primary-blue;
+        text-align: center;
+
+        .card-header {
+            margin-bottom: 30px;
+
+            i {
+                font-size: 3rem;
+                color: $primary-blue;
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                color: $primary-blue;
+                font-weight: 800;
+            }
+
+            p {
+                color: #777;
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: $primary-blue;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        transition: 0.3s;
+
+        &:focus {
+            border-color: $accent-gold;
+            outline: none;
+            box-shadow: 0 0 10px rgba($accent-gold, 0.2);
+        }
+    }
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 15px;
+    background: $primary-blue;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover:not(:disabled) {
+        background: darken($primary-blue, 5%);
+        transform: translateY(-2px);
+    }
+
+    &:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+}
+
+.trust-badges {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 1.5rem;
+    color: #bbb;
+}
+
+.orders-sec {
+    padding: 50px 0;
+
+    .order-item {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        border-left: 5px solid $accent-gold;
+
+        .order-head {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .status-tag {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: #eee;
+
+            &.paid {
+                background: #e6f7e6;
+                color: #28a745;
+            }
+        }
+
+        .order-body {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .prod-thumb img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            -o-object-fit: contain;
+               object-fit: contain;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+<section class="wrapper">
+  <!-- Signup Form -->
+  <div class="form signup">
+    <header>Signup</header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="handleForm()">
+      <input class="father-warn" formControlName="name" type="text" placeholder="Full name" />
+      <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="registerForm.get('name')?.getError('required')">** name is requierd **</p>
+        <p *ngIf="registerForm.get('name')?.getError('minlength')">** name minLength is 3 **</p>
+        <p *ngIf="registerForm.get('name')?.getError('maxlength')">** name maxLength is 10 **</p>
+      </div>
+      <input formControlName="email" type="email" placeholder="Email address" />
+      <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="registerForm.get('email')?.getError('required')">** email is requierd **</p>
+        <p *ngIf="registerForm.get('email')?.getError('email')">** email invalid format **</p>
+      </div>
+      <input formControlName="password" type="password" placeholder="Password" />
+      <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="registerForm.get('password')?.getError('required')">** password is requierd **</p>
+        <p *ngIf="registerForm.get('password')?.getError('pattern')">** password must be at least 6 chars **</p>
+      </div>
+      <input formControlName="rePassword" type="password" placeholder="Confirm Password" />
+      <div *ngIf="registerForm.get('rePassword')?.touched && registerForm.get('rePassword')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="registerForm.get('rePassword')?.getError('required')">** rePassword is requierd **</p>
+        <p *ngIf="registerForm.get('rePassword')?.getError('mismatch')">** password confirmation is incorrect **</p>
+      </div>
+      <input formControlName="phone" type="tel" placeholder="phone" />
+      <div *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.errors"
+        class="warn alert alert-danger">
+        <p *ngIf="registerForm.get('phone')?.getError('required')">** phone is requierd **</p>
+        <p *ngIf="registerForm.get('phone')?.getError('pattern')">** accept only egypt phone numbers **</p>
+
+      </div>
+
+      <div class="contain-bts-signup">
+        <button [disabled]="registerForm.invalid" type="submit">SignUp</button>
+      </div>
+      <p *ngIf="errMsg" class="warn alert alert-danger">{{errMsg}}</p>
+    </form>
+
+    <div class="checkbox">
+      <a routerLink="/login">I already have account</a>
+    </div>
+  </div>
+
+</section>

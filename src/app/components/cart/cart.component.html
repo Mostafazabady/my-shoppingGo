@@ -1,0 +1,87 @@
+<section class="cart-page">
+  <div class="container">
+
+    <div class="cart-header" @fadeIn>
+      <div class="title-group">
+        <h1>Shopping Cart</h1>
+        <p class="subtitle">Review your selected items</p>
+      </div>
+
+      <button *ngIf="cartData?.products?.length" class="clear-btn" (click)="clearAllCart()">
+        <i class="fa-solid fa-trash-can"></i> Clear Cart
+      </button>
+    </div>
+
+    <div *ngIf="!cartData || cartData?.products?.length === 0" class="empty-state" @fadeIn>
+      <div class="icon-box">
+        <i class="fa-solid fa-cart-arrow-down"></i>
+      </div>
+      <h3>Your Cart is Empty</h3>
+      <p>Looks like you haven't made your choice yet.</p>
+      <button routerLink="/home" class="btn-primary">Start Shopping</button>
+    </div>
+
+    <div class="cart-layout" *ngIf="cartData && cartData?.products?.length > 0">
+
+      <div class="products-container" [@listAnimation]="cartData.products.length">
+        <div class="cart-card" *ngFor="let item of cartData.products">
+
+          <div class="card-img">
+            <img [src]="item.product.imageCover" [alt]="item.product.title" loading="lazy">
+          </div>
+
+          <div class="card-details">
+            <div class="top-row">
+              <h4 class="product-title">{{ item.product.title }}</h4>
+              <span class="category-badge">{{ item.product.category.name }}</span>
+            </div>
+
+            <div class="price-row">
+              <span class="price">{{ item.price | currency:'EGP ' }}</span>
+
+              <div class="qty-group">
+                <button (click)="updateCount(item.product.id, item.count - 1)" [disabled]="item.count <= 1">-</button>
+                <span>{{ item.count }}</span>
+                <button (click)="updateCount(item.product.id, item.count + 1)">+</button>
+              </div>
+            </div>
+
+            <div class="actions-row">
+              <button class="remove-item-btn" (click)="removeItem(item.product.id)">
+                <i class="fa-regular fa-trash-can"></i> Remove Item
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="summary-wrapper" @fadeIn>
+        <div class="summary-card">
+          <h3>Order Summary</h3>
+          <div class="divider"></div>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>{{ cartData.totalCartPrice | currency:'EGP ' }}</span>
+          </div>
+          <div class="summary-row warning-text">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="total-row">
+            <span>Total</span>
+            <span class="total-price">{{ cartData.totalCartPrice | currency:'EGP ' }}</span>
+          </div>
+
+          <button class="checkout-btn" [routerLink]="['/payment', cartData._id]">
+            Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

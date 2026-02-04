@@ -1,0 +1,39 @@
+<section class="checkout-sec">
+  <div class="container">
+    <div class="checkout-card">
+      <div class="card-header">
+        <i class="fa-solid fa-shield-check"></i>
+        <h2>Secure Checkout</h2>
+        <p>Complete your shipping information to proceed to payment</p>
+      </div>
+
+      <form [formGroup]="checkForm" (ngSubmit)="handleForm()">
+        <div class="form-group">
+          <label for="details">Shipping Address Details</label>
+          <input type="text" id="details" formControlName="details" placeholder="e.g. 123 Street, District">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" formControlName="phone" placeholder="01xxxxxxxxx">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" formControlName="city" placeholder="e.g. Cairo">
+        </div>
+
+        <button type="submit" [disabled]="checkForm.invalid || isLoading" class="pay-btn">
+          <span *ngIf="!isLoading">Proceed to Payment <i class="fa-solid fa-credit-card"></i></span>
+          <span *ngIf="isLoading" class="loader"></span>
+        </button>
+      </form>
+
+      <div class="trust-badges">
+        <i class="fa-brands fa-cc-visa"></i>
+        <i class="fa-brands fa-cc-mastercard"></i>
+        <i class="fa-brands fa-stripe"></i>
+      </div>
+    </div>
+  </div>
+</section>

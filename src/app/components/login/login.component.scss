@@ -1,0 +1,92 @@
+.wrapper {
+  max-width: 470px;
+  max-height: 400px;
+  width: 100%;
+  margin-top: 200px;
+  margin-bottom: 30px;
+  border-radius: 15px;
+  padding: 20px 50px 120px;
+  background: #F8D171;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.form header {
+  font-size: 30px;
+  text-align: center;
+  color: #024D94;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.wrapper.active .signup header {
+  opacity: 0.6;
+}
+
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+form input {
+  height: 40px;
+  outline: none;
+  border: none;
+  padding: 0 15px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 8px;
+  background: #fff;
+  margin-bottom: 16px;
+}
+
+
+
+
+
+.contain-bts-signup {
+  display: flex;
+  justify-content: center;
+}
+
+.contain-bts-signup input {
+  background-color: #024D94;
+  width: 200px;
+  transition: 0.7s ease;
+  color: #fff;
+}
+
+.contain-bts-signup input:hover {
+  background-color: #024D94;
+  width: 100px;
+}
+
+
+
+.warn {
+  padding: 0;
+  transition: 0.7s ease;
+  text-align: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: 0;
+}
+
+.warn p {
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 767.98px) {
+
+  .wrapper {
+    max-height: 500px;
+    width: 70%;
+  }
+
+
+}

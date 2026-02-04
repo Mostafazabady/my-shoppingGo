@@ -1,1 +1,1 @@
-# shoppingGo
+# ShoppingGo

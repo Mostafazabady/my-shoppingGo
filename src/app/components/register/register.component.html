@@ -1,5 +1,4 @@
-<section class="wrapper">
-  <!-- Signup Form -->
+<!-- <section class="wrapper">
   <div class="form signup">
     <header>Signup</header>
 
@@ -48,4 +47,81 @@
     </div>
   </div>
 
+</section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="auth-page">
+  <div class="compact-card">
+    <header>Sign Up</header>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="handleForm()" class="register-form">
+      
+      <div class="form-field" [class.is-invalid]="registerForm.get('name')?.touched && registerForm.get('name')?.errors">
+        <input formControlName="name" type="text" placeholder="Full name" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Name is required (3-10 chars)</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="registerForm.get('email')?.touched && registerForm.get('email')?.errors">
+        <input formControlName="email" type="email" placeholder="Email address" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Invalid Email format</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="registerForm.get('password')?.touched && registerForm.get('password')?.errors">
+        <input formControlName="password" type="password" placeholder="Password" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Must be 6+ characters</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="registerForm.get('rePassword')?.touched && registerForm.get('rePassword')?.errors">
+        <input formControlName="rePassword" type="password" placeholder="Confirm password" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Passwords don't match</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="registerForm.get('phone')?.touched && registerForm.get('phone')?.errors">
+        <input formControlName="phone" type="tel" placeholder="Phone number" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Egyptian numbers only</div>
+      </div>
+
+<button type="submit" [disabled]="registerForm.invalid || isLoading" class="submit-btn">
+  <span *ngIf="!isLoading">Create Account</span>
+
+  <div *ngIf="isLoading" class="spinner-border spinner-border-sm text-dark" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</button>
+
+      <div class="switch-auth">
+        <span>Have an account? <a routerLink="/login">Login</a></span>
+      </div>
+    </form>
+  </div>
 </section>
+
+
+

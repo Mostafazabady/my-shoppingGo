@@ -1,5 +1,4 @@
-<section class="wrapper">
-  <!-- Signup Form -->
+<!-- <section class="wrapper">
   <div class="form signup">
     <header>Login</header>
 
@@ -30,4 +29,67 @@
 
   </div>
 
+</section> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="auth-page">
+  <div class="compact-card">
+    <header>Log In</header>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="handleForm()" class="register-form">
+      
+      <div class="form-field" [class.is-invalid]="loginForm.get('name')?.touched && loginForm.get('name')?.errors">
+        <input formControlName="name" type="text" placeholder="Full name" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Name is required (3-10 chars)</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="loginForm.get('email')?.touched && loginForm.get('email')?.errors">
+        <input formControlName="email" type="email" placeholder="Email address" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Invalid Email format</div>
+      </div>
+
+      <div class="form-field" [class.is-invalid]="loginForm.get('password')?.touched && loginForm.get('password')?.errors">
+        <input formControlName="password" type="password" placeholder="Password" />
+        <i class="fas fa-exclamation-circle error-icon"></i>
+        <div class="tooltip-err">Must be 6+ characters</div>
+      </div>
+
+
+<button type="submit" [disabled]="loginForm.invalid || isLoading" class="submit-btn">
+  <span *ngIf="!isLoading">Login</span>
+
+  <div *ngIf="isLoading" class="spinner-border spinner-border-sm text-dark" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</button>
+
+      <div class="switch-auth">
+        <span>I Don't Have an account? <a routerLink="/Register">Register</a></span>
+      </div>
+    </form>
+  </div>
 </section>
+

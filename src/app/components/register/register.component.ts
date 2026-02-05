@@ -17,7 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class RegisterComponent {
 
   constructor(private _AuthService: AuthService, private _Router: Router) { }
-
+isLoading: boolean = false;
   errMsg: string = ''
   private detroy$ = new Subject<void>()
 
@@ -50,14 +50,17 @@ export class RegisterComponent {
     console.log(this.registerForm.value);
 
     if (isValid) {
+                this.isLoading = true;
       this._AuthService.registerForm(userData).pipe(takeUntil(this.detroy$)).subscribe({
         next: (response) => {
+          this.isLoading = false;
           console.log(response);
           if (response.message === "success") {
             this._Router.navigate(['/login'])
           }
         },
         error: (err) => {
+          this.isLoading = false;
           this.errMsg = err.error.message
 
         }

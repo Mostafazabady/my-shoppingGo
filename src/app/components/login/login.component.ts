@@ -19,6 +19,7 @@ export class LoginComponent {
 
   errMsg:string = ''
     private detroy$ = new Subject<void>()
+isLoading: boolean = false;
 
     
   
@@ -35,8 +36,12 @@ export class LoginComponent {
     const isValid = this.loginForm.valid
         console.log(this.loginForm.value);
     if (isValid) {
+                      this.isLoading = true;
+
       this._AuthService.loginForm(userData).pipe(takeUntil(this.detroy$)).subscribe({
         next:(response)=>{
+                    this.isLoading = false;
+
           console.log(response);
             if (response.message === "success") {
               localStorage.setItem("_token", response.token)
@@ -44,6 +49,8 @@ export class LoginComponent {
             }
         }, 
         error:(err)=>{
+                    this.isLoading = false;
+
           this.errMsg = err.error.message
           
         }

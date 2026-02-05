@@ -10,3 +10,167 @@
     padding: 0;
     margin: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+  padding: 20px;
+}
+
+.compact-card {
+  background: #024D94; 
+  width: 100%;
+  max-width: 400px; /* العرض اللي اتفقنا عليه */
+  padding: 25px 93px; /* قللنا الـ 30 لـ 15 عشان الـ inputs تفرش بالعرض */
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  position: relative;
+  margin-top: 100px;
+
+  header {
+    color: #F8D171;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+}
+
+.form-field {
+  position: relative;
+  margin-bottom: 12px;
+  width: 100%; /* عشان تضمن إنها واخدة عرض الكارد المتاح */
+
+  input {
+    width: 100%; /* الـ input بيفرش بنسبة 100% من عرض الحاوية */
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    transition: 0.3s;
+    box-sizing: border-box; /* بيضمن إن الـ padding ميزودش عرض الـ input */
+
+    &:focus {
+      border-color: #F8D171;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+  }
+
+  .error-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff4d4d;
+    opacity: 0;
+    transition: 0.3s;
+  }
+
+  .tooltip-err {
+    position: absolute;
+    bottom: 110%; 
+    right: 0;
+    background: #ff4d4d;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 10;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      right: 15px;
+      border: 5px solid transparent;
+      border-top-color: #ff4d4d;
+    }
+  }
+
+  &.is-invalid {
+    input { border-color: #ff4d4d; }
+    .error-icon { opacity: 1; }
+    &:hover .tooltip-err { opacity: 1; visibility: visible; }
+  }
+}
+
+.submit-btn {
+  width: 100%; /* الزرار كمان بقى فارش بعرض الكارد */
+  padding: 13px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #F8D171;
+  color: #024D94;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 45px;
+
+  &:hover:not(:disabled) {
+    background: #fff;
+    transform: scale(1.01);
+  }
+  &:disabled { opacity: 0.5; }
+}
+
+.switch-auth {
+  text-align: center;
+  margin-top: 15px;
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  a { color: #F8D171; text-decoration: none; font-weight: bold; }
+}
+
+.spinner-border {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-width: 0.15em;
+  }

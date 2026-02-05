@@ -11,6 +11,7 @@ import { CartService } from 'src/app/Services/cart.service';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -44,7 +45,7 @@ import { trigger, transition, query, style, stagger, animate } from '@angular/an
 })
 export class HomeComponent implements OnInit {
 
-
+private detroy$ = new Subject<void>()
 
 constructor(private _ApiDataService:ApiDataService, private _CartService:CartService, private WishlistService:WishlistService, private _ToastrService:ToastrService){}
 
@@ -66,7 +67,7 @@ images: string[] = [
   ];
 
 ngOnInit(): void {
-  this._ApiDataService.getProudect().subscribe({
+  this._ApiDataService.getProudect().pipe(takeUntil(this.detroy$)).subscribe({
     next: (response) => {
       this.products = response.data.slice(0, 15)
       console.log(response.data);
@@ -81,7 +82,7 @@ ngOnInit(): void {
 
 addTocart(id: string) {
   this.loadingCart[id] = true;
-  this._CartService.addToCart(id).subscribe({
+  this._CartService.addToCart(id).pipe(takeUntil(this.detroy$)).subscribe({
     next: (response) => {
       this._CartService.cartCount.set(response.numOfCartItems);
       this._ToastrService.success(response.message);
@@ -96,7 +97,7 @@ addTocart(id: string) {
 
 addToWishlist(id: string) {
   this.loadingWish[id] = true; 
-  this.WishlistService.addToWishlist(id).subscribe({
+  this.WishlistService.addToWishlist(id).pipe(takeUntil(this.detroy$)).subscribe({
     next: (response) => {
       this._ToastrService.success(response.message);
       this.loadingWish[id] = false;
@@ -191,5 +192,14 @@ onMouseDown(e: MouseEvent) {
     // (0.5) هي سرعة الدوران، ممكن تزودها لو عايزه أسرع
     this.currdeg = this.prevDeg - (deltaX * 0.5); 
   }
+
+
+
+  ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
 
 }

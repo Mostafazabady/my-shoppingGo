@@ -4,6 +4,7 @@ import { FormControl,FormGroup, ReactiveFormsModule, Validators } from '@angular
 import { Router, RouterLink } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/Services/auth.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,9 @@ export class LoginComponent {
  constructor(private _AuthService:AuthService, private _Router:Router){}
 
   errMsg:string = ''
+    private detroy$ = new Subject<void>()
+
+    
   
   loginForm:FormGroup = new FormGroup({
     name: new FormControl('',[Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
@@ -31,7 +35,7 @@ export class LoginComponent {
     const isValid = this.loginForm.valid
         console.log(this.loginForm.value);
     if (isValid) {
-      this._AuthService.loginForm(userData).subscribe({
+      this._AuthService.loginForm(userData).pipe(takeUntil(this.detroy$)).subscribe({
         next:(response)=>{
           console.log(response);
             if (response.message === "success") {
@@ -47,6 +51,11 @@ export class LoginComponent {
     }
   }
 
+
+      ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
   
 
 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CartService } from 'src/app/Services/cart.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-payment',
@@ -15,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class PaymentComponent implements OnInit {
   cartId: string | null = '';
   isLoading: boolean = false;
+  private detroy$ = new Subject<void>()
 
   constructor(
     private _FormBuilder: FormBuilder, 
@@ -29,7 +31,7 @@ export class PaymentComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this._ActivatedRoute.paramMap.subscribe({
+    this._ActivatedRoute.paramMap.pipe(takeUntil(this.detroy$)).subscribe({
       next: (params) => {
         this.cartId = params.get('id');
       }
@@ -39,7 +41,7 @@ export class PaymentComponent implements OnInit {
   handleForm(): void {
     if (this.checkForm.valid) {
       this.isLoading = true;
-      this._CartService.checkOut(this.cartId!, this.checkForm.value).subscribe({
+      this._CartService.checkOut(this.cartId!, this.checkForm.value).pipe(takeUntil(this.detroy$)).subscribe({
         next: (response) => {
           this.isLoading = false;
           if (response.status === 'success') {
@@ -53,4 +55,14 @@ export class PaymentComponent implements OnInit {
       });
     }
   }
+
+
+    ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
+
+
 }

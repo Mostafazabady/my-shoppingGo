@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { ForgetPasswordService } from 'src/app/Services/forget-password.service';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +35,7 @@ export class ProfileComponent implements OnInit {
   step3: boolean = false;
   email: string = '';
   isLoading: boolean = false;
+  private detroy$ = new Subject<void>()
 
   constructor(
     private _AuthService: AuthService,
@@ -84,7 +86,7 @@ export class ProfileComponent implements OnInit {
   forgetPassword(): void {
     if (this.forgetForm.valid) {
       this.isLoading = true;
-      this._ForgetPasswordService.forgetPassword(this.forgetForm.value).subscribe({
+      this._ForgetPasswordService.forgetPassword(this.forgetForm.value).pipe(takeUntil(this.detroy$)).subscribe({
         next: (response) => {
           this._ToastrService.success(response.message || 'Reset code sent to your email!');
           this.email = this.forgetForm.value.email;
@@ -102,7 +104,7 @@ export class ProfileComponent implements OnInit {
 
   resetCode(): void {
     if (this.resetCodeForm.valid) {
-      this._ForgetPasswordService.resetCode(this.resetCodeForm.value).subscribe({
+      this._ForgetPasswordService.resetCode(this.resetCodeForm.value).pipe(takeUntil(this.detroy$)).subscribe({
         next: (response) => {
           this._ToastrService.success('Code Verified! Set your new password.');
           this.step2 = false;
@@ -117,7 +119,7 @@ export class ProfileComponent implements OnInit {
     if (this.resetPassword.valid) {
       let resetForm = this.resetPassword.value;
       resetForm.email = this.email;
-      this._ForgetPasswordService.newPassword(resetForm).subscribe({
+      this._ForgetPasswordService.newPassword(resetForm).pipe(takeUntil(this.detroy$)).subscribe({
         next: (response) => {
           if (response.token) {
             localStorage.setItem('_token', response.token);
@@ -129,4 +131,21 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+
+
+
+
+
+
+
+
+
+      ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
+
+
 }

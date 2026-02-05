@@ -5,6 +5,7 @@ import { ApiDataService } from 'src/app/Services/api-data.service';
 import { CuttextPipe } from 'src/app/Pipes/cuttext.pipe';
 import { OwlOptions, CarouselModule } from 'ngx-owl-carousel-o';
 import { SharedFunAddService } from 'src/app/Services/shared-fun-add.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -15,6 +16,7 @@ import { SharedFunAddService } from 'src/app/Services/shared-fun-add.service';
 })
 export class ProductDetailsComponent implements OnInit {
   [x: string]: any;
+  private detroy$ = new Subject<void>()
 
   constructor(private _ActivatedRoute: ActivatedRoute, private _ApiDataService: ApiDataService, private _SharedFunAddService: SharedFunAddService) { }
 isLoading: boolean = true;
@@ -26,11 +28,11 @@ isLoading: boolean = true;
 
   ngOnInit(): void {
     this.isLoading = true;
-    this._ActivatedRoute.paramMap.subscribe({
+    this._ActivatedRoute.paramMap.pipe(takeUntil(this.detroy$)).subscribe({
       next: (params) => {
         this.productId = params.get('id')!;
 
-        this._ApiDataService.prductDetails(this.productId).subscribe({
+        this._ApiDataService.prductDetails(this.productId).pipe(takeUntil(this.detroy$)).subscribe({
           next: (response) => {
             this.productDetails = response.data;
             this.productDetailsImages = response.data.images.slice(0, 5);
@@ -101,5 +103,17 @@ isLoading: boolean = true;
   addToWishList() {
     this._SharedFunAddService.addToWishlist(this.productId)
   }
+
+
+
+
+  
+    ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
+
 
 }

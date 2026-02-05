@@ -6,6 +6,7 @@ import { ApiDataService } from 'src/app/Services/api-data.service';
 import { RouterLink } from '@angular/router';
 import { SharedFunAddService } from 'src/app/Services/shared-fun-add.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -35,11 +36,12 @@ export class BrandsComponent implements OnInit {
   showModal: boolean = false;
   products: any[] = [];
   loadingProducts: boolean = false;
+private detroy$ = new Subject<void>()
 
   constructor(private _api: ApiDataService, private _SharedFunAddService: SharedFunAddService, private _ToastrService: ToastrService, private _CartService: CartService) { }
 
   ngOnInit(): void {
-    this._api.getAllBrands().subscribe({
+    this._api.getAllBrands().pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.brands = res.data;
         this.loading = false;
@@ -48,7 +50,7 @@ export class BrandsComponent implements OnInit {
   }
 
   viewBrandDetails(id: string) {
-    this._api.getSpecificBrand(id).subscribe({
+    this._api.getSpecificBrand(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.selectedBrand = res.data;
         this.isDrawerOpen = true; 
@@ -62,7 +64,7 @@ export class BrandsComponent implements OnInit {
     this.showModal = true;
     this.loadingProducts = true;
     this.products = []; 
-    this._api.getProductsByBrand(brandId).subscribe({
+    this._api.getProductsByBrand(brandId).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.products = res.data;
         this.loadingProducts = false; 
@@ -88,6 +90,14 @@ export class BrandsComponent implements OnInit {
   addToWishList(id: any) {
     this._SharedFunAddService.addToWishlist(id)
     this._ToastrService.success('product added succesfully to your wishList')
+  }
+
+
+
+  
+    ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
   }
 
 

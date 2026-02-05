@@ -5,6 +5,7 @@ import { CartService } from 'src/app/Services/cart.service'; // عشان نقد�
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 interface Product {
   id: string;
@@ -22,7 +23,6 @@ interface Product {
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
   animations: [
-    // 1. انيميشن دخول الصفحة (Grid Entrance)
     trigger('gridAnimation', [
       transition('* => *', [
         query(':enter', [
@@ -31,7 +31,6 @@ interface Product {
             animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({ opacity: 1, transform: 'translateY(0)' }))
           ])
         ], { optional: true }),
-        // 2. انيميشن الحذف (Item Removal)
         query(':leave', [
           animate('400ms ease-in', style({ opacity: 0, transform: 'scale(0.8)' }))
         ], { optional: true })
@@ -42,6 +41,7 @@ interface Product {
 export class WishlistComponent implements OnInit {
   wishlistProducts: Product[] = [];
   isLoading: boolean = true;
+  private detroy$ = new Subject<void>()
 
   constructor(
     private _WishlistService: WishlistService,
@@ -55,7 +55,7 @@ export class WishlistComponent implements OnInit {
 
   loadWishlist() {
     this.isLoading = true;
-    this._WishlistService.getWishlist().subscribe({
+    this._WishlistService.getWishlist().pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.wishlistProducts = res.data;
         this.isLoading = false;
@@ -68,17 +68,14 @@ export class WishlistComponent implements OnInit {
   }
 
   removeItem(id: string) {
-    // نقوم بحذف العنصر من المصفوفة فوراً ليعطي انطباع بالسرعة (Optimistic UI)
     const oldList = this.wishlistProducts;
     this.wishlistProducts = this.wishlistProducts.filter(item => item.id !== id);
 
-    this._WishlistService.removeFromWishlist(id).subscribe({
+    this._WishlistService.removeFromWishlist(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
-        // تم الحذف بنجاح من السيرفر
-        // هنا ممكن تظهر Toast Message
+
       },
       error: (err) => {
-        // لو حصل خطأ نرجع القائمة زي ما كانت
         this.wishlistProducts = oldList;
         console.log(err);
       }
@@ -86,7 +83,7 @@ export class WishlistComponent implements OnInit {
   }
 
   addToCart(id: string) {
-    this._CartService.addToCart(id).subscribe({
+    this._CartService.addToCart(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res:any) => {
               this._CartService.cartCount.set(res.numOfCartItems);
         console.log('Added to Cart', res);
@@ -95,4 +92,18 @@ export class WishlistComponent implements OnInit {
       }
     });
   }
+
+
+
+
+
+  
+    ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
+
+
 }

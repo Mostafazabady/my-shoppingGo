@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from 'src/app/Services/cart.service';
 import { RouterLink } from '@angular/router';
 import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -35,6 +36,7 @@ import { trigger, transition, style, animate, query, stagger } from '@angular/an
 export class CartComponent implements OnInit {
   cartData: any = null;
   isLoading: boolean = true;
+  private detroy$ = new Subject<void>()
 
   constructor(private _CartService: CartService) { }
 
@@ -44,7 +46,7 @@ export class CartComponent implements OnInit {
 
   getCartDetails() {
     this.isLoading = true;
-    this._CartService.getCart().subscribe({
+    this._CartService.getCart().pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         this.cartData = response.data;
         this.isLoading = false;
@@ -57,7 +59,7 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(id: string) {
-    this._CartService.removeSpecificCartItem(id).subscribe({
+    this._CartService.removeSpecificCartItem(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         this.cartData = response.data;
         this._CartService.cartCount.set(response.numOfCartItems);
@@ -69,7 +71,7 @@ export class CartComponent implements OnInit {
 
   clearAllCart() {
     this.isLoading = true;
-    this._CartService.clearCart().subscribe({
+    this._CartService.clearCart().pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         if (response.message === "success") {
           this.cartData = null;
@@ -86,9 +88,19 @@ export class CartComponent implements OnInit {
 
   updateCount(id: string, count: number) {
     if (count > 0) {
-      this._CartService.updateItemCount(id, count).subscribe({
+      this._CartService.updateItemCount(id, count).pipe(takeUntil(this.detroy$)).subscribe({
         next: (res) => this.cartData = res.data
       });
     }
   }
+
+
+
+  
+    ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
+  }
+
+
 }

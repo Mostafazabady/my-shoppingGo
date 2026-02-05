@@ -1,4 +1,4 @@
-<section>
+<!-- <section>
   <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container">
@@ -57,3 +57,87 @@
   </header>
 
 </section>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="nav-container">
+  <header>
+    <nav class="navbar navbar-expand-md custom-nav fixed-top">
+      <div class="container">
+        
+        <a class="navbar-brand" routerLink="" (click)="closeNavbar()">
+          <img src="./assets/images/logo 2.webp" class="image-data" alt="Shopping Go Logo">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-bars hamburger-icon"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="collapsibleNavId" #navCollapse>
+          <ul class="navbar-nav ms-auto mt-2 mt-lg-0 align-items-center">
+            
+            <li class="nav-item me-4">
+              <a class="nav-link" routerLinkActive="active-link" routerLink="/home" (click)="closeNavbar()">Home</a>
+            </li>
+            <li class="nav-item me-4">
+              <a class="nav-link" routerLinkActive="active-link" routerLink="/products" (click)="closeNavbar()">Products</a>
+            </li>
+            <li class="nav-item me-4">
+              <a class="nav-link" routerLinkActive="active-link" routerLink="/categories" (click)="closeNavbar()">Categories</a>
+            </li>
+            <li class="nav-item me-4">
+              <a class="nav-link" routerLinkActive="active-link" routerLink="/brands" (click)="closeNavbar()">Brands</a>
+            </li>
+            <li class="nav-item me-4">
+              <a class="nav-link" routerLinkActive="active-link" routerLink="/contact" (click)="closeNavbar()">Contact Us</a>
+            </li>
+
+            <div class="icon-collection d-flex align-items-baseline">
+              <li class="nav-item me-4">
+                <div class="dropdown">
+                  <button class="btn" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"> <i class="fas fa-user-gear"></i> </button>
+                  <div class="dropdown-menu" aria-labelledby="triggerId">
+                    <a class="dropdown-item" routerLink="/profile" (click)="closeNavbar()">Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor" (click)="signOut()" (click)="closeNavbar()">SignOut</a>
+                  </div>
+                </div>
+              </li>
+              <li routerLink="./wishlist" class="nav-item me-4" (click)="closeNavbar()">
+                <i class="cursor fas fa-heart"></i>
+              </li>
+              <li routerLink="./cart" class="nav-item me-4 position-relative cursor" (click)="closeNavbar()">
+                <i class="fas fa-cart-shopping fs-5"></i>
+                <span class="badge-cart" *ngIf="count() > 0">
+                  {{ count() }}
+                </span>
+              </li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+</section>
+<div class="nav-spacer"></div>

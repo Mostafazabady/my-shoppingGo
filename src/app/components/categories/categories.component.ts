@@ -6,6 +6,7 @@ import { Category, SubCategory } from 'src/app/interfaces/apps';
 import { trigger, transition, query, style, stagger, animate } from '@angular/animations';
 import { SharedFunAddService } from 'src/app/Services/shared-fun-add.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-categories',
@@ -45,6 +46,7 @@ export class CategoriesComponent implements OnInit {
   products: any[] = [];
   loadingSubs: boolean = false;
   loadingProducts: boolean = false;
+  private detroy$ = new Subject<void>()
 
   constructor(private _api: ApiDataService, private _router: Router, private _SharedFunAddService: SharedFunAddService, private _ToastrService: ToastrService) { }
 
@@ -53,7 +55,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   loadInitialData() {
-    this._api.getAllCategories().subscribe({
+    this._api.getAllCategories().pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.allCategories = res.data;
         if (this.allCategories.length > 0) {
@@ -66,10 +68,10 @@ export class CategoriesComponent implements OnInit {
 
   onCategoryClick(id: string) {
     this.loadingSub = true;
-    this._api.getSpecificCategory(id).subscribe(res => {
+    this._api.getSpecificCategory(id).pipe(takeUntil(this.detroy$)).subscribe(res => {
       this.currentCategory = res.data;
     });
-    this._api.getAllSubCategoriesOnCategory(id).subscribe({
+    this._api.getAllSubCategoriesOnCategory(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.subCategories = res.data;
         this.loadingSub = false;
@@ -88,7 +90,7 @@ export class CategoriesComponent implements OnInit {
     this.showModal = true;
     this.loadingProducts = true;
     this.products = [];
-    this._api.getProductsBySub(subId).subscribe({
+    this._api.getProductsBySub(subId).pipe(takeUntil(this.detroy$)).subscribe({
       next: (res) => {
         this.products = res.data;
         console.log(this.products);
@@ -115,6 +117,12 @@ export class CategoriesComponent implements OnInit {
   addToWishList(id: any) {
     this._SharedFunAddService.addToWishlist(id)
     this._ToastrService.success('product added succesfully to your wishList')
+  }
+
+
+      ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
   }
 
 }

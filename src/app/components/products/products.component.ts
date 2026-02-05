@@ -10,6 +10,7 @@ import { CuttextPipe } from 'src/app/Pipes/cuttext.pipe';
 import { CartService } from 'src/app/Services/cart.service';
 import { WishlistService } from 'src/app/Services/wishlist.service';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
+  private detroy$ = new Subject<void>()
 
   constructor(private _ApiDataService: ApiDataService, private _CartService: CartService, private WishlistService: WishlistService, private _ToastrService: ToastrService) { }
 
@@ -55,7 +57,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._ApiDataService.getProudect().subscribe({
+    this._ApiDataService.getProudect().pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         this.allProducts = response.data;
         this.generatePageNumbers();
@@ -90,7 +92,7 @@ export class ProductsComponent implements OnInit {
 
   addTocart(id: string) {
     this.loadingCart[id] = true;
-    this._CartService.addToCart(id).subscribe({
+    this._CartService.addToCart(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         this._CartService.cartCount.set(response.numOfCartItems);
         this._ToastrService.success(response.message);
@@ -104,7 +106,7 @@ export class ProductsComponent implements OnInit {
   }
   addToWishlist(id: string) {
     this.loadingWish[id] = true;
-    this.WishlistService.addToWishlist(id).subscribe({
+    this.WishlistService.addToWishlist(id).pipe(takeUntil(this.detroy$)).subscribe({
       next: (response) => {
         this._ToastrService.success(response.message);
         this.loadingWish[id] = false;
@@ -114,6 +116,13 @@ export class ProductsComponent implements OnInit {
         this.loadingWish[id] = false;
       }
     });
+  }
+
+
+
+      ngOnDestroy(): void {
+    this.detroy$.next()
+    this.detroy$.complete() 
   }
 
 
